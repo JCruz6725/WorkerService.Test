@@ -1,10 +1,23 @@
-namespace WorkerService.Test {
-    public class Program {
-        public static void Main(string[] args) {
-            var builder = Host.CreateApplicationBuilder(args);
+using Microsoft.Extensions.Logging.Configuration;
+using Microsoft.Extensions.Logging.EventLog;
+
+namespace WorkerService.Test
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+            builder.Services.AddWindowsService(options =>
+            {
+                options.ServiceName = ".NET Person Service";
+            });
+
+            LoggerProviderOptions.RegisterProviderOptions<
+                EventLogSettings, EventLogLoggerProvider>(builder.Services);
             builder.Services.AddHostedService<Worker>();
 
-            var host = builder.Build();
+            IHost host = builder.Build();
             host.Run();
         }
     }
