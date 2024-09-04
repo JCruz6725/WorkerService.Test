@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.FileIO;
+using Windows.Media.Capture;
 using WorkerService.Test.Models;
 using WorkerService.Test.Util;
 
@@ -14,20 +15,8 @@ namespace WorkerService.Test
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
             try {
-                string pathToFile = "./Names.json";
-                List<Person> people  = await FileParse.ReturnContentsOfFileAsync<List<Person>>(pathToFile);
-                Random rand = new Random();
-            
-                
-
-                while(!stoppingToken.IsCancellationRequested) {
-                    Person person =  people[rand.Next(0, people.Count)];
-                    if(_logger.IsEnabled(LogLevel.Information)) {
-                        _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                        _logger.LogWarning($"{person.id}\n  {person.name}\n\n");
-                    }
-                    await Task.Delay(1000, stoppingToken);
-                }
+                await Task.Delay(1500, stoppingToken);
+                Environment.Exit(0);
             }
             catch(OperationCanceledException) {
                 // When the stopping token is canceled, for example, a call made from services.msc,
