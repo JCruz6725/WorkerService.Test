@@ -1,9 +1,3 @@
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic.FileIO;
-using Windows.Media.Capture;
-using WorkerService.Test.Models;
-using WorkerService.Test.Util;
-
 namespace WorkerService.Test
 {
     public class Worker : BackgroundService {
