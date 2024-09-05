@@ -15,7 +15,11 @@ namespace WorkerService.Test
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
             try {
-                await Task.Delay(1500, stoppingToken);
+                _logger.LogWarning("WorkerService Starting...");
+                await Task.Delay(2000);
+
+                //Force exit
+                _logger.LogWarning("WorkerService Exiting...");
                 Environment.Exit(0);
             }
             catch(OperationCanceledException) {
